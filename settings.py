@@ -15,3 +15,12 @@ pipe_pair_sizes = [
 pipe_size = HEIGHT // 10
 pipe_gap = (pipe_size * 2) + (pipe_size // 2)
 ground_space = 50
+
+def import_sprite(path):
+    surface_list = []
+    for _, __, files in walk(path):
+        for image in img_file:
+            full_path = f"{path}/{image}"
+            img_surface = pygame.image.load(full_path).convert_alpha()
+            surface_list.append
+        return surface_list
