@@ -29,3 +29,9 @@ class World:
         self.pipes.add(pipe_top)
         self.pipes.add(pipe_bottom)
         self.current_pipe = pipe_top
+
+    # crée le joueur et l'obstacle
+    def _generate_word(self):
+        self._add_pipe()
+        bird = Bird((WIDTH // 2 - pipe_size, HEIGHT // 2 - pipe_size), 30)
+        self.player.add(bird)
