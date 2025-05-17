@@ -62,3 +62,32 @@ class World:
             if bird.rect.x >= self.current_pipe.rect.centerx:
                 bird.score += 1
                 self.passed = True
+    # Met à jour l'état général de l'oiseau
+    def update(self, player_event = None):
+        # nouvel ajout de tuyau
+        if self.current_pipe.rect.centerx <= (WIDTH // 2) - pipe_size:
+            self._add_pipe()
+        # met à jour, dessine des tuyaux
+        self.pipes.update(self.word_shift)
+        self.pipes.draw(self.screen)
+        # application de la physique du jeu
+        self._apply_gravity(self.player.sprite)
+        self._scroll_x()
+        self._handle_collisions()
+        # configuration des actions du joueur
+        if player_event == "jump" and not self.game_over:
+            player_event = True
+        elif player_event == "restart":
+            self.game_over = False
+            self.pipes.empty()
+            self.player.empty()
+            self.player.score = 0
+            self._generate_world()
+        else:
+            player_event = False
+        if not self.playing:
+            self.game.instructions()
+        # met à jour, dessine les tuyaux
+        self.player.update(player_event)
+        self.player.draw(self.screen)
+        self.game.show_score(self.player.sprite.score)
