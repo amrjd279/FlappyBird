@@ -15,3 +15,11 @@ class GameIndicator:
         bird_score = str(int_score)
         score = self.font.render(bird_score, True, self.color)
         self.screen.blit(score, (WIDTH // 2, 50))
+
+    def instructions(self):
+        inst_text1 = "Appuyez sur la touche ESPACE pour sauter,"
+        inst_text2 = "Appuyez sur la touche R pour redémarrer."
+        ins1 = self.inst_font.render(inst_text1, True, self.inst_color)
+        ins2 = self.inst_font.render(inst_text2, True, self.inst_color)
+        self.screen.blit(ins1, 95, 400))
+        self.screen.blit(ins2, 70, 450))
