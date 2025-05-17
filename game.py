@@ -1,3 +1,4 @@
+# game.py
 import pygame
 from settings import WIDTH, HEIGHT
 
