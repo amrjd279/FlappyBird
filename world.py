@@ -19,3 +19,13 @@ class World:
         self.game_over = False
         self.passed = True
         self.game = GameIndicator(self.screen)
+
+    # Ajoute un tuyau une fois que le dernier tuyau ajouté a atteint les espaces horizontaux souhaités.
+    def _add_pipe(self):
+        pipe_pair_size = random.choice(pipe_pair_sizes)
+        top_pipe_height, bottom_pipe_height = pipe_pair_size[0] * pipe_size, pipe_pair_size[1] * pipe_size
+        pipe_top = Pipe((WIDTH, 0 - (bottom_pipe_height + pipe_gap)), pipe_size, HEIGHT, True)
+        pipe_bottom = Pipe((WIDTH, top_pipe_height + pipe_gap), pipe_size, HEIGHT, False)
+        self.pipes.add(pipe_top)
+        self.pipes.add(pipe_bottom)
+        self.current_pipe = pipe_top
