@@ -30,8 +30,35 @@ class World:
         self.pipes.add(pipe_bottom)
         self.current_pipe = pipe_top
 
-    # crée le joueur et l'obstacle
+    # Crée le joueur et l'obstacle
     def _generate_word(self):
         self._add_pipe()
         bird = Bird((WIDTH // 2 - pipe_size, HEIGHT // 2 - pipe_size), 30)
         self.player.add(bird)
+
+    # Pour déplacer l'arrière-plan/l'obstacle
+    def _sroll_x(self):
+        if self.playing:
+            self.world_shift = -6
+        else:
+            self.world_shift = 0
+
+    # Ajouter la gravité à l'oiseau pour le faire tomber
+    def _apply_gravity(self, player):
+        if self.playing or self.game_over:
+            player.direction.y += self.gravity
+            player.rect += player.direction.y
+
+    # Gère le score et les collisions
+    def _handle_collisions(self):
+        bird = self.player.sprite
+        # pour la vérification des collisions
+        if pygame.sprite.groupcollide(self.player, self.pipes, False, False) or bird.rect.bottom >= HEIGHT or bird.rect.top <= 0:
+            self.playing = False
+            self.game_ober = True
+        else:
+            # si le joueur passe à travers les espaces des tuyaux
+            bird = self.player.sprite
+            if bird.rect.x >= self.current_pipe.rect.centerx:
+                bird.score += 1
+                self.passed = True
